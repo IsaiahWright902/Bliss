@@ -11,7 +11,7 @@ class DbContext {
 
   Lists = mongoose.model("List", ListSchema);
 
-  Tasts = mongoose.model("Task", TaskSchema);
+  Tasks = mongoose.model("Task", TaskSchema);
 }
 
 export const dbContext = new DbContext();
