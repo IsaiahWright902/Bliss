@@ -6,7 +6,7 @@ import { taskService } from '../services/TaskService'
 
 
 //PUBLIC
-export class TasksController extends BaseController {
+export class TaskController extends BaseController {
   constructor() {
     super("api/tasks")
     this.router = express.Router()
@@ -18,7 +18,6 @@ export class TasksController extends BaseController {
 
   async create(req, res, next) {
     try {
-      req.body.creatorEmail = req.userInfo.email
       let data = await taskService.create(req.body)
       return res.status(201).send(data)
     } catch (error) { next(error) }
