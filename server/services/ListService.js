@@ -3,10 +3,10 @@ import { BadRequest } from "../utils/Errors"
 
 
 class ListService {
-  async getListsByEmail(email) {
-    let lists = await dbContext.Lists.find({ creatorEmail: email })
+  async getListsByBoardId(id) {
+    let lists = await dbContext.Lists.find({ boardId: id })
     if (!lists) {
-      throw new BadRequest("Invalid email");
+      throw new BadRequest("Invalid");
     }
     return lists;
   }
