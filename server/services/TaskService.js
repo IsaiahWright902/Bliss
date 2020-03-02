@@ -4,7 +4,7 @@ import { BadRequest } from "../utils/Errors"
 
 class TaskService {
 
-  async getTaskByListId(id) {
+  async getTasksByListId(id) {
     let data = await dbContext.Tasks.find({ _id: id })
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this board")

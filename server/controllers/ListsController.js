@@ -1,7 +1,8 @@
 import express from 'express'
 import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
-import { listService } from '../services/ListService'
+import { listService } from '../services/ListService';
+import { taskService } from '../services/TaskService'
 
 
 
@@ -40,17 +41,6 @@ export class ListsController extends BaseController {
       let data = await taskService.getTasksByListId(req.params.id)
     } catch (error) {
       next(error)
-    }
-  }
-
-  async getListsByEmail(req, res, next) {
-    try {
-      // NOTE NEVER TRUST THE CLIENT TO ADD THE CREATOR ID
-      req.body.creatorEmail = req.userInfo.email;
-      let lists = await listService.getListsByEmail(req.body.creatorEmail);
-      res.send(lists);
-    } catch (error) {
-      next(error);
     }
   }
 
