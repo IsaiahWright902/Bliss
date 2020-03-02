@@ -8,7 +8,7 @@ import { taskService } from '../services/TaskService'
 //PUBLIC
 export class TasksController extends BaseController {
   constructor() {
-    super("api/boards")
+    super("api/tasks")
     this.router = express.Router()
       .use(auth0provider.getAuthorizedUserInfo)
       .post('', this.create)
