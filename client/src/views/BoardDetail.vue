@@ -2,6 +2,7 @@
   <div class="boardDetail">
     <h1 v-if="board.title">{{board.title}}</h1>
     <h1 v-else>Loading...</h1>
+    <list />
   </div>
 </template>
 
