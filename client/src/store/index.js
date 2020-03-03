@@ -28,7 +28,14 @@ export default new Vuex.Store({
     },
     setBoards(state, boards) {
       state.boards = boards
+    },
+    setActiveBoard(state, board) {
+      state.activeBoard = board
+    },
+    removeBoard(state, _id) {
+      state.boards = state.boards.filter(b => b._id != _id)
     }
+
   },
   actions: {
     //#region -- AUTH STUFF --
@@ -61,6 +68,11 @@ export default new Vuex.Store({
         .then(serverBoard => {
           dispatch('getBoards')
         })
+    },
+    async deleteBoard({ commit, dispatch }, _id) {
+      await api.delete('boards/' + _id)
+      commit("removeBoard", _id);
+      dispatch("getBoards");
     }
     //#endregion
 

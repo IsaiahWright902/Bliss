@@ -9,16 +9,18 @@
       <button class="btn btn-success" type="submit">Create Board</button>
     </form>
     <div v-for="board in boards" :key="board.id">
-      <router-link :to="{name: 'boardDetail', params: {boardId: board.id}}">
-        <div class="card text-center m-3 border border-info gradient">
-          <div
-            class="card-header bg-transparent border-bottom border-dark h3 text-dark"
-          >{{board.title}}</div>
-          <div class="card-body">
-            <h5 class="card-title text-dark">{{board.description}}</h5>
-          </div>
+      <div class="card text-center m-3 border border-info gradient">
+        <div class="card-header bg-transparent border-bottom border-dark h3 text-dark">
+          <router-link
+            :to="{name: 'boardDetail', params: {boardId: board.id}}"
+            class="text-dark"
+          >{{board.title}}</router-link>
         </div>
-      </router-link>
+        <div class="card-body">
+          <h5 class="card-title text-dark">{{board.description}}</h5>
+          <button @click="deleteBoard(board.id)" class="btn btn-sm btn-danger float-right">Delete</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -33,7 +35,8 @@ export default {
     return {
       newBoard: {
         title: "",
-        description: ""
+        description: "",
+        id: ""
       },
       form: false
     };
@@ -47,6 +50,10 @@ export default {
     addBoard() {
       this.$store.dispatch("addBoard", this.newBoard);
       this.newBoard = { title: "", description: "" };
+      this.form = false;
+    },
+    deleteBoard(id) {
+      this.$store.dispatch("deleteBoard", id);
     }
   }
 };
