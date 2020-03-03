@@ -13,8 +13,8 @@ export class BoardsController extends BaseController {
     this.router = express.Router()
       .use(auth0provider.getAuthorizedUserInfo)
       .get('', this.getAll)
-      .get('/email/:creatorEmail', this.getBoardsByEmail)
-      .get("/lists/:boardId", this.getListsByBoardId)
+      .get('/:creatorEmail/email', this.getBoardsByEmail)
+      .get("/:boardId/lists", this.getListsByBoardId)
       .get('/:id', this.getById)
       .post('', this.create)
       .put('/:id', this.edit)
@@ -51,7 +51,7 @@ export class BoardsController extends BaseController {
 
   async getListsByBoardId(req, res, next) {
     try {
-      let boards = await listService.getListsByBoardId(req.body.boardId);
+      let boards = await listService.getListsByBoardId(req.params.boardId);
       res.send(boards);
     } catch (error) {
       next(error);

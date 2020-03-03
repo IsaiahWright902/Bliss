@@ -13,7 +13,7 @@ export class ListsController extends BaseController {
     this.router = express.Router()
       .use(auth0provider.getAuthorizedUserInfo)
       .get('/:id', this.getById)
-      .get('/tasks/:listId', this.getTasksByListId)
+      .get('/:listId/tasks', this.getTasksByListId)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
