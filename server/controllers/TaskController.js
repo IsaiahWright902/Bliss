@@ -18,6 +18,7 @@ export class TaskController extends BaseController {
 
   async create(req, res, next) {
     try {
+      req.body.creatorEmail = req.userInfo.email
       let data = await taskService.create(req.body)
       return res.status(201).send(data)
     } catch (error) { next(error) }
