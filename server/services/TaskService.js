@@ -33,6 +33,20 @@ class TaskService {
     return data;
   }
 
+  async removeComment(id, update) {
+    let data = dbContext.Tasks.findByIdAndUpdate(
+      { _id: id },
+      {
+        $pull: {
+          comments: {
+            _id: update.id
+          }
+        }
+      },
+      { new: true }
+    );
+    return data
+  }
 
   async edit(id, userEmail, update) {
     let data = await dbContext.Tasks.findOneAndUpdate({ _id: id, creatorEmail: userEmail }, update, { new: true })
