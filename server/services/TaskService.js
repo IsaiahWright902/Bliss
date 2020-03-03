@@ -56,6 +56,14 @@ class TaskService {
     return data;
   }
 
+  async changeList(id, userEmail, update) {
+    let data = await dbContext.Tasks.findOneAndUpdate({ _id: id, creatorEmail: userEmail }, update, { new: true })
+    if (!data) {
+      throw new BadRequest("Invalid ID or you do not own this board");
+    }
+    return data;
+  }
+
   async delete(id, userEmail) {
     let data = await dbContext.Tasks.findOneAndRemove({ _id: id, creatorEmail: userEmail });
     if (!data) {

@@ -15,6 +15,7 @@ export class TaskController extends BaseController {
       .put('/:id', this.edit)
       .put('/:id/comment', this.addComment)
       .put("/:id/removeComment", this.removeComment)
+      .put("/:id/move", this.changeList)
       .delete('/:id', this.delete)
 
   }
@@ -30,6 +31,13 @@ export class TaskController extends BaseController {
   async edit(req, res, next) {
     try {
       let data = await taskService.edit(req.params.id, req.userInfo.email, req.body)
+      return res.send(data)
+    } catch (error) { next(error) }
+  }
+
+  async changeList(req, res, next) {
+    try {
+      let data = await taskService.changeList(req.params.id, req.userInfo.email, req.body)
       return res.send(data)
     } catch (error) { next(error) }
   }
