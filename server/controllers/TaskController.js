@@ -13,6 +13,7 @@ export class TaskController extends BaseController {
       .use(auth0provider.getAuthorizedUserInfo)
       .post('', this.create)
       .put('/:id', this.edit)
+      .put('/:id/comment', this.addComment)
       .delete('/:id', this.delete)
   }
 
@@ -27,6 +28,12 @@ export class TaskController extends BaseController {
   async edit(req, res, next) {
     try {
       let data = await taskService.edit(req.params.id, req.userInfo.email, req.body)
+      return res.send(data)
+    } catch (error) { next(error) }
+  }
+  async addComment(req, res, next) {
+    try {
+      let data = await taskService.addComment(req.params.id, req.body)
       return res.send(data)
     } catch (error) { next(error) }
   }

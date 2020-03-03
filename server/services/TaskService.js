@@ -16,6 +16,23 @@ class TaskService {
     let data = await dbContext.Tasks.create(rawData)
     return data
   }
+  async addComment(id, update) {
+    let data = await dbContext.Tasks.findOneAndUpdate(
+      { _id: id },
+      {
+        $push: {
+          comments: { $each: update.comments }
+        }
+      },
+      { new: true }
+    )
+
+    if (!data) {
+      throw new BadRequest("Invalid");
+    }
+    return data;
+  }
+
 
   async edit(id, userEmail, update) {
     let data = await dbContext.Tasks.findOneAndUpdate({ _id: id, creatorEmail: userEmail }, update, { new: true })
