@@ -6,10 +6,6 @@ const List = new Schema({
   title: { type: String, required: true },
   creatorEmail: { type: String, required: true },
   boardId: { type: ObjectId, ref: 'Board', required: true },
-  comments: [{
-    author: { type: String, required: true },
-    body: { type: String, required: true }
-  }]
 }, { timestamps: true, toJSON: { virtuals: true } })
 
 
