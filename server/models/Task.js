@@ -2,14 +2,18 @@ import mongoose from "mongoose"
 let Schema = mongoose.Schema
 let ObjectId = Schema.Types.ObjectId
 
-const List = new Schema({
+const Task = new Schema({
   title: { type: String, required: true },
   listId: { type: ObjectId, ref: 'List', required: true },
-  creatorEmail: { type: String, required: true }
+  creatorEmail: { type: String, required: true },
+  comments: [{
+    author: { type: String, required: true },
+    body: { type: String, required: true }
+  }]
 }, { timestamps: true, toJSON: { virtuals: true } })
 
 
-List.virtual("creator",
+Task.virtual("creator",
   {
     localField: "creatorEmail",
     ref: "Profile",
@@ -18,7 +22,7 @@ List.virtual("creator",
   })
 
 //CASCADE ON DELETE
-List.pre('deleteMany', function (next) {
+Task.pre('deleteMany', function (next) {
   //lets find all the lists and remove them
   Promise.all([
     //something like...
@@ -29,7 +33,7 @@ List.pre('deleteMany', function (next) {
 })
 
 //CASCADE ON DELETE
-List.pre('findOneAndRemove', function (next) {
+Task.pre('findOneAndRemove', function (next) {
   //lets find all the lists and remove them
   Promise.all([
     // dbContext.Task.deleteMany({ boardId: this._conditions._id })
@@ -38,4 +42,4 @@ List.pre('findOneAndRemove', function (next) {
     .catch(err => next(err))
 })
 
-export default List
+export default Task
