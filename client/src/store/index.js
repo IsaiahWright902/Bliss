@@ -18,7 +18,9 @@ export default new Vuex.Store({
   state: {
     user: {},
     boards: [],
-    activeBoard: {}
+    activeBoard: {},
+    tasks: [],
+    lists: []
   },
   mutations: {
     setUser(state, user) {
