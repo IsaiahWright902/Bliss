@@ -6,7 +6,37 @@
     </h3>
     <task v-for="(taskObj) in tasks" :key="taskObj._id" :taskData="taskObj" />
     <div class="card-body">
-      <button class="btn btn-sm btn-outline-dark">Add Task</button>
+      <button
+        data-toggle="modal"
+        data-target="#addTaskModal"
+        class="btn btn-sm btn-outline-dark"
+      >Add Task</button>
+    </div>
+    <div class="modal" id="addTaskModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content gradient">
+          <div class="modal-header">
+            <h5 class="modal-title">New Task</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="addTask">
+              <input
+                type="text"
+                placeholder="Enter New Task Here..."
+                rows="1"
+                class="col-12"
+                v-model="newTask.title"
+              />
+
+              <button type="submit" class="btn btn-success">Add Task</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -20,6 +50,10 @@ export default {
   methods: {
     getTasksByList() {
       this.$store.dispatch("getTasksByListId", this.listData.id);
+    },
+    addTask() {
+      this.$store.dispatch("addTaskToList", this.newTask, this.listData.id);
+      this.getTasksByList();
     }
   },
   mounted() {
@@ -35,7 +69,12 @@ export default {
   },
   data() {
     return {
-      id: this.listData.id
+      id: this.listData.id,
+      newTask: {
+        title: "",
+        listId: this.listData.id,
+        creatorEmail: this.listData.creatorEmail
+      }
     };
   }
 };

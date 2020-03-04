@@ -39,6 +39,7 @@ export default new Vuex.Store({
       state.lists = lists
     },
     setTasks(state, { res, id }) {
+
       let tasks = res.data
       // state.tasks[id] = tasks
       Vue.set(state.tasks, id, tasks)
@@ -115,5 +116,15 @@ export default new Vuex.Store({
     },
 
     //#endregion
+
+    async addTaskToList({ commit, dispatch }, newTask) {
+      let listId = newTask.listId
+      try {
+        let res = await api.post("tasks", newTask);
+        // commit("setTasks", res.data)
+        commit("setTasks", { res, listId })
+      } catch (error) { console.error(error) }
+    }
+
   }
 })
