@@ -1,6 +1,6 @@
 <template>
   <div class="boardDetail">
-    <h1 v-if="board.title">{{board.title}}</h1>
+    <h1 v-if="board.title" class="text-info">{{board.title}}</h1>
     <h1 v-else>Loading...</h1>
     <button
       class="btn mx-auto btn-block btn-success col-12 col-md-3"
