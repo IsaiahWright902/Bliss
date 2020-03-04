@@ -20,10 +20,13 @@
             </h5>
             <ul class="list-group list-group-flush m-2">
               <li
-                class="list-group-item listItem h5"
+                class="list-group-item listItem row"
                 v-for="(commentObj) in comments"
                 :key="commentObj.body"
-              >{{commentObj.body}}</li>
+              >
+                <h5 class="col-12">{{commentObj.body}}</h5>
+                <p class="col-12 text-right">-{{commentObj.author}}</p>
+              </li>
               <div v-if="newCommentForm">
                 <input type="text" name="newComment" id="newComment" />
               </div>
