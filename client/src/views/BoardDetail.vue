@@ -2,7 +2,9 @@
   <div class="boardDetail">
     <h1 v-if="board.title">{{board.title}}</h1>
     <h1 v-else>Loading...</h1>
-    <list v-for="(listObj) in lists" :key="listObj._id" :listData="listObj" />
+    <div class="row list-row m-2">
+      <list v-for="(listObj) in lists" :key="listObj._id" :listData="listObj" />
+    </div>
   </div>
 </template>
 
@@ -42,3 +44,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.list-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+</style>

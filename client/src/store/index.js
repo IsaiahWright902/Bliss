@@ -37,6 +37,9 @@ export default new Vuex.Store({
     },
     setLists(state, lists) {
       state.lists = lists
+    },
+    setTasks(state, tasks) {
+      state.tasks = tasks
     }
 
   },
@@ -98,6 +101,14 @@ export default new Vuex.Store({
         commit("setLists", res.data)
       } catch (e) {
         console.error(e)
+      }
+    },
+    async getTasksByListId({ commit, dispatch }, id) {
+      try {
+        let res = await api.get('lists/' + id + "/tasks")
+        commit("setTasks", res.data)
+      } catch (error) {
+        console.error(error)
       }
     }
 
