@@ -3,7 +3,7 @@
     <h1 v-if="board.title" class="text-info">{{board.title}}</h1>
     <h1 v-else>Loading...</h1>
     <button
-      class="btn mx-auto btn-block btn-success col-12 col-md-3"
+      class="btn mx-auto btn-block btn-info col-12 col-md-3"
       data-toggle="modal"
       data-target="#addListModal"
     >Add List</button>
@@ -60,6 +60,9 @@ export default {
     },
     getListsByBoardId() {
       this.$store.dispatch("getListsByBoardId", this.$route.params.boardId);
+    },
+    addList() {
+      this.$store.dispatch("addListByBoardId", this.$route.params.boardId);
     }
   },
   props: ["boardId"],
@@ -71,7 +74,11 @@ export default {
 
 <style scoped>
 .gradient {
-  background-image: linear-gradient(to bottom right, teal, rgb(110, 211, 84));
+  background-image: linear-gradient(
+    to bottom left,
+    rgb(52, 160, 160),
+    rgb(131, 241, 104)
+  );
 }
 .list-row {
   display: flex;
