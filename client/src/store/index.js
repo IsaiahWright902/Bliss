@@ -118,11 +118,12 @@ export default new Vuex.Store({
     //#endregion
 
     async addTaskToList({ commit, dispatch }, newTask) {
+
       let listId = newTask.listId
       try {
         let res = await api.post("tasks", newTask);
         // commit("setTasks", res.data)
-        commit("setTasks", { res, listId })
+        dispatch("getTasksByListId", listId)
       } catch (error) { console.error(error) }
     }
 

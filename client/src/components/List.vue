@@ -8,11 +8,11 @@
     <div class="card-body">
       <button
         data-toggle="modal"
-        data-target="#addTaskModal"
+        :data-target="'#addTaskModal'+listData.id"
         class="btn btn-sm btn-outline-dark"
       >Add Task</button>
     </div>
-    <div class="modal" id="addTaskModal">
+    <div class="modal" :id="'addTaskModal'+listData.id">
       <div class="modal-dialog" role="document">
         <div class="modal-content gradient">
           <div class="modal-header">
@@ -49,10 +49,11 @@ export default {
   props: ["listData"],
   methods: {
     getTasksByList() {
+      debugger;
       this.$store.dispatch("getTasksByListId", this.listData.id);
     },
     addTask() {
-      this.$store.dispatch("addTaskToList", this.newTask, this.listData.id);
+      this.$store.dispatch("addTaskToList", this.newTask);
       this.getTasksByList();
     }
   },
@@ -69,7 +70,6 @@ export default {
   },
   data() {
     return {
-      id: this.listData.id,
       newTask: {
         title: "",
         listId: this.listData.id,
