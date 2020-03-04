@@ -31,7 +31,7 @@
                 v-model="newTask.title"
               />
 
-              <button type="submit" class="btn btn-success">Add Task</button>
+              <button type="submit" class="btn btn-success" data-dimiss="modal">Add Task</button>
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </form>
           </div>

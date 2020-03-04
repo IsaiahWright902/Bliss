@@ -2,8 +2,32 @@
   <div class="boardDetail">
     <h1 v-if="board.title">{{board.title}}</h1>
     <h1 v-else>Loading...</h1>
+    <button
+      class="btn mx-auto btn-block btn-success col-12 col-md-3"
+      data-toggle="modal"
+      data-target="#addListModal"
+    >Add List</button>
     <div class="row list-row m-2">
       <list v-for="(listObj) in lists" :key="listObj._id" :listData="listObj" />
+    </div>
+    <div class="modal" id="addListModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content gradient">
+          <div class="modal-header">
+            <h5 class="modal-title">New List</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="addList">
+              <input type="text" placeholder="Enter New List Here..." rows="1" class="col-12" />
+              <button type="submit" class="btn btn-success">Save changes</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -46,6 +70,9 @@ export default {
 </script>
 
 <style scoped>
+.gradient {
+  background-image: linear-gradient(to bottom right, teal, rgb(110, 211, 84));
+}
 .list-row {
   display: flex;
   flex-direction: row;
