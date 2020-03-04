@@ -49,7 +49,6 @@ export default {
   props: ["listData"],
   methods: {
     getTasksByList() {
-      debugger;
       this.$store.dispatch("getTasksByListId", this.listData.id);
     },
     addTask() {
