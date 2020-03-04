@@ -2,7 +2,7 @@
   <div class="card mb-3 mx-1 col-12 col-md-3 border border-dark gradient">
     <h3 class="card-header">
       {{listData.title}}
-      <a class="text-danger float-right">X</a>
+      <a @click="deleteList" class="text-danger float-right">X</a>
     </h3>
     <task v-for="(taskObj) in tasks" :key="taskObj._id" :taskData="taskObj" />
     <div class="card-body">
@@ -54,6 +54,9 @@ export default {
     addTask() {
       this.$store.dispatch("addTaskToList", this.newTask);
       this.getTasksByList();
+    },
+    deleteList() {
+      this.$store.dispatch("deleteListByListId", this.listData.id);
     }
   },
   mounted() {
