@@ -1,8 +1,13 @@
-<template></template>
+<template>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{taskData.title}}</li>
+  </ul>
+</template>
 
 <script>
 export default {
-  name: "Task"
+  name: "Task",
+  props: ["taskData"]
 };
 </script>
 
