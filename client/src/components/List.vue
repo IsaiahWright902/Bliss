@@ -19,19 +19,24 @@ export default {
   props: ["listData"],
   methods: {
     getTasksByList() {
-      this.$store.dispatch("getTaskByList", this.listData.id);
+      this.$store.dispatch("getTasksByListId", this.listData.id);
     }
   },
   mounted() {
-    this.getTasksByList;
+    this.getTasksByList();
   },
   computed: {
     tasks() {
-      return this.$store.state.tasks;
+      return this.$store.state.tasks.find(t => t.listId == this.id);
     }
   },
   components: {
     task
+  },
+  data() {
+    return {
+      id: this.listData.id
+    };
   }
 };
 </script>

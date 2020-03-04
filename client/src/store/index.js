@@ -39,7 +39,7 @@ export default new Vuex.Store({
       state.lists = lists
     },
     setTasks(state, tasks) {
-      state.tasks = tasks
+      state.tasks.push(tasks)
     }
 
   },
@@ -110,8 +110,7 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error)
       }
-    }
-
+    },
 
     //#endregion
   }
