@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     tasks() {
-      return this.$store.state.tasks.find(t => t.listId == this.id);
+      return this.$store.state.tasks[this.listData.id];
     }
   },
   components: {
