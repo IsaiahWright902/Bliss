@@ -137,9 +137,11 @@ export default new Vuex.Store({
       }
     },
 
-    async deleteComment({ commit, dispatch }, comment, id) {
+    async deleteComment({ commit, dispatch }, comment) {
       try {
-        let res = await api.put("tasks/" + id + "/removeComment", comment)
+        let res = await api.put("tasks/" + comment.task + "/removeComment", comment.body)
+        console.log(res)
+
       } catch (error) {
         console.error(error)
       }

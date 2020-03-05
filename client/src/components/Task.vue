@@ -31,7 +31,7 @@
                 :key="commentObj._id"
               >
                 <p
-                  @click="deleteComment(commentObj._id)"
+                  @click="deleteComment(commentObj)"
                   class="deletebutton col-12 text-right text-danger"
                 >X</p>
                 <h5 class="col-12">{{commentObj.body}}</h5>
@@ -100,8 +100,19 @@ export default {
     addCommentToList() {
       this.$store.dispatch("addComment", this.newComment, this.taskData.id);
     },
-    deleteComment(id) {
-      this.$store.dispatch("deleteComment", id, this.taskData.id);
+    deleteComment(comment) {
+      let body = {
+        body: comment.body,
+        author: comment.author,
+        _id: comment._id
+      };
+      let task = this.taskData.id;
+      let list = this.taskData.listId;
+      this.$store.dispatch("deleteComment", {
+        task: task,
+        list: list,
+        body: body
+      });
     }
   }
 };
