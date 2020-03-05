@@ -95,6 +95,8 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
+
 export default {
   name: "Task",
   props: ["taskData"],
@@ -128,21 +130,53 @@ export default {
       });
     },
     deleteComment(comment) {
-      let body = {
-        body: comment.body,
-        author: comment.author,
-        _id: comment._id
-      };
-      let task = this.taskData.id;
-      let list = this.taskData.listId;
-      this.$store.dispatch("deleteComment", {
-        task: task,
-        list: list,
-        body: body
+      Swal.fire({
+        title: "Are you sure you want to delete this comment?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+        backdrop: `
+      rgba(123, 0, 16, 0.4)
+  `
+      }).then(result => {
+        if (result.value) {
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          let body = {
+            body: comment.body,
+            author: comment.author,
+            _id: comment._id
+          };
+          let task = this.taskData.id;
+          let list = this.taskData.listId;
+          this.$store.dispatch("deleteComment", {
+            task: task,
+            list: list,
+            body: body
+          });
+        }
       });
     },
     deleteTask(task) {
-      this.$store.dispatch("deleteTask", task);
+      Swal.fire({
+        title: "Are you sure you want to delete this task?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+        backdrop: `
+      rgba(123, 0, 16, 0.4)
+  `
+      }).then(result => {
+        if (result.value) {
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          this.$store.dispatch("deleteTask", task);
+        }
+      });
     },
     dragStart() {
       this.$store.commit("setActiveTask", {
