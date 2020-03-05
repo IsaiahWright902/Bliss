@@ -52,7 +52,7 @@
               </li>
               <div v-if="newCommentForm">
                 <div class="bg-info p-2 m-3">
-                  <form @submit="addCommentToList">
+                  <form @submit.prevent="addCommentToList">
                     <input
                       class="my-2"
                       type="text"
@@ -79,12 +79,12 @@
             </ul>
             <i
               v-if="!newCommentForm"
-              @click="newCommentForm=true"
+              @click.prevent="newCommentForm=true"
               class="fas fa-comment-medical text-warning float-right m-3"
             ></i>
             <i
               v-if="newCommentForm"
-              @click="newCommentForm=false"
+              @click.prevent="newCommentForm=false"
               class="fas fa-comment-slash text-danger float-right m-3"
             ></i>
           </div>
