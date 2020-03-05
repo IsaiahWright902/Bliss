@@ -154,7 +154,10 @@ export default new Vuex.Store({
 
     },
 
-    async deleteList() {
+    async deleteListByListId({ commit, dispatch }, list) {
+      let id = list.id
+      let res = api.delete('lists/' + id)
+      dispatch("getListsByBoardId", list.boardId)
 
     }
 
