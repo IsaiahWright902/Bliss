@@ -1,10 +1,11 @@
 <template>
   <div class="card mb-3 mx-1 col-12 col-md-3 border border-dark gradient">
-    <h3 class="card-header">
+    <h3 class="card-header border-bottom border-dark">
       {{listData.title}}
       <a @click="deleteList(listData.id)" class="text-danger float-right">X</a>
     </h3>
     <div :id="listData.id" @dragover.prevent="removeTask" @drop.prevent="moveTask">
+      <h4 class="my-1">Tasks...</h4>
       <task v-for="(taskObj) in tasks" :key="taskObj._id" :taskData="taskObj" />
     </div>
     <div class="card-body">
