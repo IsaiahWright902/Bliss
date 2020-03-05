@@ -147,7 +147,10 @@ export default new Vuex.Store({
       }
     },
 
-    async addList() {
+    async addListByBoardId({ commit, dispatch }, newList) {
+      let boardId = newList.boardId
+      let res = api.post("/lists", newList);
+      dispatch("getListsByBoardId", boardId)
 
     },
 
