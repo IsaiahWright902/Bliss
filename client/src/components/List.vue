@@ -68,13 +68,15 @@ export default {
       console.log("drop");
       console.log("move task");
       console.log("move task new list id" + this.listData.id);
-      let taskId = this.$store.state.activeTask;
+      let taskId = this.$store.state.activeTask.taskId;
+      let oldList = this.$store.state.activeTask.oldList;
       let listId = this.listData.id;
       let boardId = this.$route.params.boardId;
       this.$store.dispatch("moveTask", {
         taskId: taskId,
         listId: listId,
         boardId: boardId,
+        oldList: oldList,
         body: {
           listId: listId
         }

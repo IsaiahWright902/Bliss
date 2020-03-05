@@ -153,31 +153,33 @@ export default new Vuex.Store({
 
     async addListByBoardId({ commit, dispatch }, newList) {
       let boardId = newList.boardId
-      let res = api.post("/lists", newList);
-      await dispatch("getListsByBoardId", boardId)
+      let res = await api.post("/lists", newList);
+      dispatch("getListsByBoardId", boardId)
 
     },
 
     async deleteListByListId({ commit, dispatch }, list) {
       let id = list.id
-      let res = api.delete('lists/' + id)
-      await dispatch("getListsByBoardId", list.boardId)
+      let res = await api.delete('lists/' + id)
+      dispatch("getListsByBoardId", list.boardId)
 
     },
 
     async deleteTask({ commit, dispatch }, task) {
       let id = task.id
       let listId = task.listId
-      let res = api.delete('tasks/' + id)
-      await dispatch("getTasksByListId", listId)
+      let res = await api.delete('tasks/' + id)
+      dispatch("getTasksByListId", listId)
     },
 
     async moveTask({ commit, dispatch }, update) {
       let listId = update.listId
       let taskId = update.taskId
+      let oldList = update.oldList
       let boardId = update.boardId
-      let res = api.put('tasks/' + taskId + "/move", update.body)
-      await dispatch("getListsByBoardId", boardId)
+      let res = await api.put('tasks/' + taskId + "/move", update.body)
+      dispatch("getTasksByListId", listId)
+      dispatch("getTasksByListId", oldList)
     }
 
   }
