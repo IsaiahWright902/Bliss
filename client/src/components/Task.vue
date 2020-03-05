@@ -145,7 +145,10 @@ export default {
       this.$store.dispatch("deleteTask", task);
     },
     dragStart() {
-      this.$store.commit("setActiveTask", this.taskData.id);
+      this.$store.commit("setActiveTask", {
+        taskId: this.taskData.id,
+        oldList: this.taskData.listId
+      });
       console.log("dragStart task id" + this.taskData.id);
     },
     dragEnd() {
