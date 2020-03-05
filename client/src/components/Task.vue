@@ -28,9 +28,12 @@
               <li
                 class="list-group-item listItem row"
                 v-for="(commentObj) in comments"
-                :key="commentObj.body"
+                :key="commentObj._id"
               >
-                <p class="col-12 text-right text-danger">X</p>
+                <p
+                  @click="deleteComment(commentObj._id)"
+                  class="deletebutton col-12 text-right text-danger"
+                >X</p>
                 <h5 class="col-12">{{commentObj.body}}</h5>
                 <p class="col-12 text-right">-{{commentObj.author}}</p>
               </li>
@@ -97,12 +100,8 @@ export default {
     addCommentToList() {
       this.$store.dispatch("addComment", this.newComment, this.taskData.id);
     },
-    deleteComment() {
-      this.$store.dispatch(
-        "deleteComment",
-        this.newComment._id,
-        this.taskData.id
-      );
+    deleteComment(id) {
+      this.$store.dispatch("deleteComment", id, this.taskData.id);
     }
   }
 };
@@ -142,5 +141,8 @@ i {
 .addbutton {
   background-color: transparent;
   border: transparent;
+}
+.deletebutton {
+  cursor: pointer;
 }
 </style>

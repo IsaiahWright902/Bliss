@@ -125,6 +125,32 @@ export default new Vuex.Store({
         // commit("setTasks", res.data)
         dispatch("getTasksByListId", listId)
       } catch (error) { console.error(error) }
+    },
+
+    async addComment({ commit, dispatch }, comment, id) {
+      try {
+        let res = await api.put("tasks/" + id + "/comment", comment)
+        let listId = res.data.listId
+        dispatch("getTasksByListId", listId)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    async deleteComment({ commit, dispatch }, comment, id) {
+      try {
+        let res = await api.put("tasks/" + id + "/removeComment", comment)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    async addList() {
+
+    },
+
+    async deleteList() {
+
     }
 
   }
