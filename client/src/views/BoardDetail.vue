@@ -21,7 +21,13 @@
           </div>
           <div class="modal-body">
             <form @submit.prevent="addList">
-              <input type="text" placeholder="Enter New List Here..." rows="1" class="col-12" />
+              <input
+                v-model="newList.title"
+                type="text"
+                placeholder="Enter New List Here..."
+                rows="1"
+                class="col-12"
+              />
               <button type="submit" class="btn btn-success">Save changes</button>
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </form>
@@ -37,6 +43,11 @@ import list from "@/components/List";
 
 export default {
   name: "boardDetail",
+  data() {
+    return {
+      newList: {}
+    };
+  },
   computed: {
     board() {
       return this.$store.state.activeBoard;
@@ -62,7 +73,11 @@ export default {
       this.$store.dispatch("getListsByBoardId", this.$route.params.boardId);
     },
     addList() {
-      this.$store.dispatch("addListByBoardId", this.$route.params.boardId);
+      let body = {
+        title: this.newList.title,
+        boardId: this.$route.params.boardId
+      };
+      this.$store.dispatch("addListByBoardId", body);
     }
   },
   props: ["boardId"],
