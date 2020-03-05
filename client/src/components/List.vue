@@ -46,6 +46,7 @@
 
 <script>
 import task from "@/components/Task";
+import Swal from "sweetalert2";
 
 export default {
   name: "List",
@@ -59,8 +60,27 @@ export default {
       this.getTasksByList();
     },
     deleteList(id) {
-      let boardId = this.$route.params.boardId;
-      this.$store.dispatch("deleteListByListId", { id: id, boardId: boardId });
+      Swal.fire({
+        title: "Are you sure you want to delete this list?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+        backdrop: `
+      rgba(123, 0, 16, 0.4)
+  `
+      }).then(result => {
+        if (result.value) {
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          let boardId = this.$route.params.boardId;
+          this.$store.dispatch("deleteListByListId", {
+            id: id,
+            boardId: boardId
+          });
+        }
+      });
     },
     removeTask() {
       console.log("dragOver");
