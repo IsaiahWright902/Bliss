@@ -1,5 +1,10 @@
 <template>
-  <ul class="list-group list-group-flush">
+  <ul
+    class="list-group list-group-flush"
+    draggable="true"
+    @dragstart="dragStart"
+    @dragend="dragEnd"
+  >
     <li class="list-group-item listItem h5">
       {{taskData.title}}
       <div>
@@ -138,6 +143,13 @@ export default {
     },
     deleteTask(task) {
       this.$store.dispatch("deleteTask", task);
+    },
+    dragStart() {
+      this.$store.commit("setActiveTask", this.taskData.id);
+      console.log("dragStart task id" + this.taskData.id);
+    },
+    dragEnd() {
+      console.log("dragEnd");
     }
   }
 };

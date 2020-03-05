@@ -20,7 +20,8 @@ export default new Vuex.Store({
     boards: [],
     activeBoard: {},
     tasks: {},
-    lists: []
+    lists: [],
+    activeTask: {}
   },
   mutations: {
     setUser(state, user) {
@@ -43,6 +44,9 @@ export default new Vuex.Store({
       let tasks = res.data
       // state.tasks[id] = tasks
       Vue.set(state.tasks, id, tasks)
+    },
+    setActiveTask(state, task) {
+      state.activeTask = task
     }
 
   },
@@ -150,14 +154,14 @@ export default new Vuex.Store({
     async addListByBoardId({ commit, dispatch }, newList) {
       let boardId = newList.boardId
       let res = api.post("/lists", newList);
-      dispatch("getListsByBoardId", boardId)
+      await dispatch("getListsByBoardId", boardId)
 
     },
 
     async deleteListByListId({ commit, dispatch }, list) {
       let id = list.id
       let res = api.delete('lists/' + id)
-      dispatch("getListsByBoardId", list.boardId)
+      await dispatch("getListsByBoardId", list.boardId)
 
     },
 
@@ -165,8 +169,18 @@ export default new Vuex.Store({
       let id = task.id
       let listId = task.listId
       let res = api.delete('tasks/' + id)
-      dispatch("getTasksByListId", listId)
+      await dispatch("getTasksByListId", listId)
+    },
+
+    async moveTask({ commit, dispatch }, update) {
+      let listId = update.listId
+      let taskId = update.taskId
+      let boardId = update.boardId
+      let res = api.put('tasks/' + taskId + "/move", update.body)
+      await dispatch("getListsByBoardId", boardId)
     }
 
   }
+
+
 })

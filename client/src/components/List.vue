@@ -4,7 +4,9 @@
       {{listData.title}}
       <a @click="deleteList(listData.id)" class="text-danger float-right">X</a>
     </h3>
-    <task v-for="(taskObj) in tasks" :key="taskObj._id" :taskData="taskObj" />
+    <div :id="listData.id" @dragover.prevent="removeTask" @drop.prevent="moveTask">
+      <task v-for="(taskObj) in tasks" :key="taskObj._id" :taskData="taskObj" />
+    </div>
     <div class="card-body">
       <button
         data-toggle="modal"
@@ -58,6 +60,26 @@ export default {
     deleteList(id) {
       let boardId = this.$route.params.boardId;
       this.$store.dispatch("deleteListByListId", { id: id, boardId: boardId });
+    },
+    removeTask() {
+      console.log("dragOver");
+    },
+    moveTask() {
+      console.log("drop");
+      console.log("move task");
+      console.log("move task new list id" + this.listData.id);
+      let taskId = this.$store.state.activeTask;
+      let listId = this.listData.id;
+      let boardId = this.$route.params.boardId;
+      this.$store.dispatch("moveTask", {
+        taskId: taskId,
+        listId: listId,
+        boardId: boardId,
+        body: {
+          listId: listId
+        }
+      });
+      this.getTasksByList;
     }
   },
   mounted() {
