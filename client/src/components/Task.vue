@@ -2,15 +2,23 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item listItem h5">
       {{taskData.title}}
-      <button
-        type="button"
-        class="btn btn-info rounded-circle"
-        data-toggle="modal"
-        :data-target="'#commentModal'+taskData.id"
-      >
-        <i class="fas fa-comment"></i>
-      </button>
-
+      <div>
+        <button
+          type="button"
+          class="btn btn-info rounded-circle"
+          data-toggle="modal"
+          :data-target="'#commentModal'+taskData.id"
+        >
+          <i class="fas fa-comment"></i>
+        </button>
+        <button
+          @click="deleteTask(taskData)"
+          type="button"
+          class="btn btn-outline-danger rounded-circle"
+        >
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
       <div
         class="modal fade bd-example-modal-sm"
         :id="'commentModal'+taskData.id"
@@ -127,6 +135,9 @@ export default {
         list: list,
         body: body
       });
+    },
+    deleteTask(task) {
+      this.$store.dispatch("deleteTask", task);
     }
   }
 };
