@@ -98,7 +98,21 @@ export default {
   },
   methods: {
     addCommentToList() {
-      this.$store.dispatch("addComment", this.newComment, this.taskData.id);
+      let body = {
+        comments: [
+          {
+            body: this.newComment.body,
+            author: this.newComment.author
+          }
+        ]
+      };
+      let task = this.taskData.id;
+      let list = this.taskData.listId;
+      this.$store.dispatch("addComment", {
+        task: task,
+        list: list,
+        body: body
+      });
     },
     deleteComment(comment) {
       let body = {
