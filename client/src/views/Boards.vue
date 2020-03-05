@@ -1,8 +1,16 @@
 <template>
   <div class="boards">
-    <h1 class="text-info">Welcome to your boards!</h1>
-    <button v-if="!form" @click="form=true" class="btn btn-info">New Board</button>
-    <button v-if="form" @click="form=false" class="btn btn-warning">Cancel</button>
+    <h1 class="text-info welcome-text mt-1">Welcome to your boards!</h1>
+    <button
+      v-if="!form"
+      @click="form=true"
+      class="btn mx-auto btn-block btn-info col-12 col-md-3"
+    >New Board</button>
+    <button
+      v-if="form"
+      @click="form=false"
+      class="btn mx-auto btn-block btn-warning col-12 col-md-3"
+    >Cancel</button>
     <form class="my-2 mx-4 border border-info bg-info p-3" @submit.prevent="addBoard" v-if="form">
       <input class="col-4" type="text" placeholder="title" v-model="newBoard.title" required />
       <input class="col-6" type="text" placeholder="description" v-model="newBoard.description" />
@@ -80,5 +88,9 @@ export default {
 <style scoped>
 .gradient {
   background-image: linear-gradient(to bottom right, teal, rgb(110, 211, 84));
+}
+.welcome-text {
+  background-color: rgba(0, 0, 0, 0.699);
+  border-radius: 10%;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="boardDetail">
-    <h1 v-if="board.title" class="text-info">{{board.title}}</h1>
+    <h1 v-if="board.title" class="text-info welcome-text">{{board.title}}</h1>
     <h1 v-else>Loading...</h1>
     <button
       class="btn mx-auto btn-block btn-info col-12 col-md-3"
@@ -100,5 +100,9 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+}
+.welcome-text {
+  background-color: rgba(0, 0, 0, 0.699);
+  border-radius: 10%;
 }
 </style>
