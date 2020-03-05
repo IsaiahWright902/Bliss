@@ -36,6 +36,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   background-color: rgba(0, 0, 0, 0.438);
+  height: 100vh;
 }
 
 #nav {
