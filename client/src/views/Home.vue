@@ -22,4 +22,8 @@ export default {
 
 
 <style scoped>
+.home {
+  background-color: rgba(0, 0, 0, 0.438);
+  height: 100vh;
+}
 </style>
