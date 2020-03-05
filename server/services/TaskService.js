@@ -39,7 +39,7 @@ class TaskService {
       {
         $pull: {
           comments: {
-            _id: update.id
+            _id: update._id
           }
         }
       },
